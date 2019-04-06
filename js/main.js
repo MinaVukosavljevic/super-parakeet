@@ -2,7 +2,7 @@
 
 
 
-function setCookie(cookieName, cookieValue, expires) {
+function setCookie(cookieName, posetilac, expires) {
 
     var days = new Date();
 
@@ -10,13 +10,13 @@ function setCookie(cookieName, cookieValue, expires) {
 
     days.toUTCString();
 
-    document.cookie = cookieName + "=" + cookieValue + "; expires = " + days + "; path=/";
+    document.cookie = cookieName + "=" + posetilac + "; expires = " + days + "; path=/";
 
 }
 
 
 
-function newCookie(cookieName, cookieValue) {
+function newCookie(cookieName, posetilac) {
 
     // var cookieName = prompt('Koji cookie zelite da sacuvate?');
 
@@ -26,7 +26,7 @@ function newCookie(cookieName, cookieValue) {
 
     var expires = 10;
 
-    setCookie(cookieName, cookieValue, expires);
+    setCookie(cookieName, posetilac, expires);
 
 }
 
@@ -95,12 +95,26 @@ function getCookie(cookieName) {
 
 
 window.onload = function () {
-
-    var name = getCookie("name");
+//ako kuki postoji da primeni vrednosti iz kukija umesto da ceka da ih korisnik unese pri reload
+    var name = getCookie("imePosetioca");
+    var bgcolor = getCookie('bojaPozadine');
+    var fontColor = getCookie('slova');
 
     if (name !== false) {
 
         document.querySelector('h1 span').innerHTML = name;
+
+    }
+
+    if (bgcolor !== false) {
+
+        document.body.style.backgroundColor = bgcolor;
+
+    }
+
+    if (fontColor !== false) {
+
+        document.querySelector('h1').style.color = fontColor;
 
     }
 
@@ -110,13 +124,13 @@ window.onload = function () {
 
 function setName() {
 
-    var name = document.getElementById('name').value;
+    var posetilac = document.getElementById('ime').value; // mina
 
-    document.querySelector('h1 span').innerHTML = name;
+    document.querySelector('h1 span').innerHTML = posetilac;
 
-    document.getElementById('name').value = "";
+    document.getElementById('ime').value = "";
 
-    newCookie("name", name);
+    newCookie("imePosetioca", posetilac);
 
 }
 
@@ -124,22 +138,32 @@ function setName() {
 
 function setBgCol() {
 
+    var pozadina = document.getElementById('bg').value; //red, blue
 
+    document.body.style.backgroundColor = pozadina;
 
+    document.getElementById('bg').value = "";
+
+    newCookie("bojaPozadine", pozadina );
 }
 
 
 
 function setTextCol () {
 
-    
+    var bojaSlova = document.getElementById('text').value;
 
-}
+    document.querySelector('h1').style.color = bojaSlova;
+
+    document.getElementById('text').value = "";
+    newCookie("slova", bojaSlova );
+} 
 
 
 
 function setAll() {
-
-
+    setName();
+    setBgCol();
+    setTextCol();
 
 }
