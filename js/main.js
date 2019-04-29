@@ -159,11 +159,57 @@ function setTextCol () {
     newCookie("slova", bojaSlova );
 } 
 
+// function setBgColor () {
+
+//     var poz = document.querySelector("input[name='pozadina']:checked").value;
+
+//     //pozadina();
+
+//     document.body.style.backgroundColor = `${poz}`;
+
+//     newCookie("pozadina", `${poz}` );
+// } 
 
 
 function setAll() {
     setName();
     setBgCol();
     setTextCol();
+    // setBgColor();
 
 }
+
+function pozadina () {
+//name za radio batone more da bude isti 
+let checkedRadios = document.querySelectorAll("input[name='pozadina']");
+
+for (var i = 0; i < checkedRadios.length; i++) {
+        //osluskuje onclick dogadjaje
+        checkedRadios[i].addEventListener("click", function() {
+        //selektuje cekirani radio
+        let test = document.querySelector("input[name='pozadina']:checked");
+
+        if (test.value == "boja") {
+            let boja = prompt("unesi hash boje");
+            if(/^#?([0-9a-f]{3}){1,2}$/i.test(boja)) {
+                document.body.style.backgroundColor = `${boja}`;
+            }
+            else {
+                alert("loš unos")
+            }
+        }
+        else {
+            let pozadina = prompt("unesi url slike");
+            if (/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig.test(pozadina)) {
+                document.body.style.background = `url("${pozadina}") no-repeat`;
+            }
+            else {
+                alert("loš unos")
+            }
+        }
+
+    })
+}
+}
+
+pozadina();
